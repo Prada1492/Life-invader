@@ -1,0 +1,245 @@
+
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FaceFindr — Life Influencer (Clone inspirado)</title>
+  <style>
+    /* Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f0f2f5;color:#111}
+
+    /* Top bar */
+    .topbar{background:linear-gradient(90deg,#4b9be6,#1d6fb8);padding:12px 24px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo svg{width:44px;height:44px}
+    .brand{font-weight:700;font-size:20px;letter-spacing:0.3px}
+    .search{flex:1;max-width:540px;margin:0 20px}
+    .search input{width:100%;padding:10px 14px;border-radius:20px;border:0;outline:none}
+    .top-actions{display:flex;gap:12px;align-items:center}
+    .btn{background:#fff;color:#1d6fb8;padding:8px 12px;border-radius:8px;font-weight:600;border:none;cursor:pointer}
+    .btn.ghost{background:transparent;color:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.12)}
+
+    /* Layout */
+    .container{display:grid;grid-template-columns:280px 1fr 320px;gap:20px;padding:28px;max-width:1200px;margin:18px auto}
+    .card{background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(17,24,39,0.06);padding:16px}
+
+    /* Left sidebar */
+    .profile{display:flex;gap:12px;align-items:center}
+    .avatar{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#ffd6a5,#ffb4a2);display:flex;align-items:center;justify-content:center;font-weight:700;color:#612918}
+    .profile .meta{line-height:1}
+    .profile h3{font-size:16px}
+    .profile p{font-size:13px;color:#6b7280}
+    .nav-list{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+    .nav-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;color:#374151;cursor:pointer}
+    .nav-item:hover{background:#f3f4f6}
+
+    /* Feed */
+    .composer{display:flex;gap:12px;align-items:flex-start}
+    .composer textarea{flex:1;border-radius:12px;border:1px solid #e5e7eb;padding:12px;resize:none;height:76px}
+    .composer .post-controls{display:flex;gap:8px;margin-top:8px}
+    .post{margin-top:16px}
+    .post .post-head{display:flex;gap:12px;align-items:center}
+    .post .post-body{margin-top:10px;font-size:15px;color:#111}
+    .post .post-media{margin-top:12px;border-radius:10px;overflow:hidden;background:linear-gradient(90deg,#e2e8f0,#cbd5e1);height:220px;display:flex;align-items:center;justify-content:center;color:#6b7280}
+    .post .post-actions{display:flex;gap:12px;margin-top:12px;color:#6b7280}
+
+    /* Right column */
+    .suggestions h4{margin-bottom:8px}
+    .suggest-item{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+    .suggest-item .a{width:44px;height:44px;border-radius:8px;background:#eef2ff;display:flex;align-items:center;justify-content:center;font-weight:700}
+    .suggest-item button{margin-left:auto}
+
+    /* Footer */
+    footer{max-width:1200px;margin:12px auto;color:#6b7280;font-size:13px;padding:18px}
+
+    /* Responsive */
+    @media (max-width:980px){.container{grid-template-columns:1fr;padding:16px}.topbar .search{display:none}.container > :nth-child(3){display:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">
+      <!-- Simple original SVG mark (not a game asset) -->
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <rect width="48" height="48" rx="10" fill="#fff" opacity="0.12"/>
+        <circle cx="16" cy="20" r="7" fill="#fff" opacity="0.9"/>
+        <rect x="26" y="14" width="14" height="12" rx="3" fill="#fff" opacity="0.75"/>
+      </svg>
+      <div class="brand">FaceFindr</div>
+    </div>
+
+    <div class="search"><input placeholder="Buscar en FaceFindr... (simulado)" /></div>
+
+    <div class="top-actions">
+      <button class="btn ghost" onclick="openLogin()">Iniciar sesión</button>
+      <button class="btn" onclick="openSignup()">Regístrate</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <aside>
+      <div class="card">
+        <div class="profile">
+          <div class="avatar">SF</div>
+          <div class="meta">
+            <h3>Samuel F.</h3>
+            <p>Desarrollador — Bogotá</p>
+          </div>
+        </div>
+        <div class="nav-list">
+          <div class="nav-item">Inicio</div>
+          <div class="nav-item">Mi Perfil</div>
+          <div class="nav-item">Mensajes</div>
+          <div class="nav-item">Notificaciones</div>
+          <div class="nav-item">Configuración</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h4>Sitio simulado</h4>
+        <p style="color:#6b7280;margin-top:8px;font-size:14px">Este clon respeta la estética general del juego pero <strong>no</strong> usa assets originales de GTA ni logos registrados.</p>
+      </div>
+    </aside>
+
+    <section>
+      <div class="card">
+        <div class="composer">
+          <div class="avatar">TU</div>
+          <div style="flex:1">
+            <textarea id="composer" placeholder="¿Qué está pasando? (simulado)"></textarea>
+            <div class="post-controls">
+              <button class="btn" onclick="publish()">Publicar</button>
+              <button class="btn ghost" onclick="seedRandomPost()">Generar post falso</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="feed"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h4>Explorar</h4>
+        <p style="margin-top:8px;color:#6b7280">Tendencias simuladas y enlaces de ejemplo.</p>
+      </div>
+    </section>
+
+    <aside>
+      <div class="card suggestions">
+        <h4>Personas que quizá conozcas</h4>
+        <div id="suggestions"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h4>Sobre este clon</h4>
+        <p style="color:#6b7280;margin-top:8px;font-size:14px">Creado con HTML, CSS y JavaScript. Ideal para usar en Visual Studio / Visual Studio Code como proyecto local.</p>
+      </div>
+    </aside>
+  </main>
+
+  <footer>FaceFindr — Interfaz reconstruida con fines educativos y de práctica. No afiliado a Rockstar Games ni a Grand Theft Auto.</footer>
+
+  <!-- Login / Signup modals (simples) -->
+  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);align-items:center;justify-content:center">
+    <div style="width:420px;background:#fff;padding:18px;border-radius:12px">
+      <h3 id="modal-title">Iniciar sesión</h3>
+      <input id="email" placeholder="Email" style="width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #e5e7eb" />
+      <input id="pass" type="password" placeholder="Contraseña" style="width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #e5e7eb" />
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button class="btn ghost" onclick="closeModal()">Cerrar</button>
+        <button class="btn" onclick="fakeLogin()">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Datos de usuarios falsos (puedes editar)
+    const users = [
+      {id:1,name:'Amanda R.',handle:'@amandar',bio:'Fotógrafa · Coffee lover',avatarInitials:'AR'},
+      {id:2,name:'Diego M.',handle:'@diego_m',bio:'Streamer y gamer',avatarInitials:'DM'},
+      {id:3,name:'Luz V.',handle:'@luzv',bio:'Estudiante de diseño',avatarInitials:'LV'},
+      {id:4,name:'Carlos S.',handle:'@carlos_s',bio:'Emprendedor',avatarInitials:'CS'},
+      {id:5,name:'Natalia P.',handle:'@natalia_p',bio:'UX Writer',avatarInitials:'NP'}
+    ];
+
+    // Posts iniciales (simulados)
+    const seedPosts = [
+      {user:users[1],text:'Acabo de terminar mi stream — jueguen con moderacion y buen rollo 😀',time:'2h'},
+      {user:users[0],text:'Nueva sesión de fotos en el centro — alguien recomienda cafetería?',time:'4h'},
+      {user:users[2],text:'Proyecto final entregado! por fin descanso',time:'1d'}
+    ];
+
+    const feedEl = document.getElementById('feed');
+    const suggestionsEl = document.getElementById('suggestions');
+
+    function renderFeed(){
+      feedEl.innerHTML = '';
+      for(const p of seedPosts.slice().reverse()){
+        const div = document.createElement('div');
+        div.className = 'post card';
+        div.innerHTML = `
+          <div class="post-head">
+            <div class="avatar">${p.user.avatarInitials}</div>
+            <div>
+              <strong>${p.user.name}</strong> <span style="color:#6b7280">${p.user.handle} · ${p.time}</span>
+              <div class="post-body">${escapeHtml(p.text)}</div>
+            </div>
+          </div>
+          <div class="post-actions">
+            <div>👍 Me gusta</div>
+            <div>💬 Comentarios</div>
+            <div>↗ Compartir</div>
+          </div>
+        `;
+        feedEl.appendChild(div);
+      }
+    }
+
+    function renderSuggestions(){
+      suggestionsEl.innerHTML = '';
+      for(const u of users){
+        const row = document.createElement('div');
+        row.className = 'suggest-item';
+        row.innerHTML = `
+          <div class="a">${u.avatarInitials}</div>
+          <div style="flex:1">
+            <strong>${u.name}</strong>
+            <div style="color:#6b7280;font-size:13px">${u.bio}</div>
+          </div>
+          <button class="btn">Seguir</button>
+        `;
+        suggestionsEl.appendChild(row);
+      }
+    }
+
+    function publish(){
+      const t = document.getElementById('composer').value.trim();
+      if(!t) return alert('Escribe algo primero.');
+      seedPosts.push({user:users[0],text:t,time:'Ahora'});
+      document.getElementById('composer').value='';
+      renderFeed();
+    }
+
+    function seedRandomPost(){
+      const frases = ['No puedo creer lo que pasó hoy 😮','Recomendación de serie: imprescindible','Algún consejo para una entrevista?','Café + lluvia = productivo']
+      const idx = Math.floor(Math.random()*frases.length);
+      const user = users[Math.floor(Math.random()*users.length)];
+      seedPosts.push({user,text:frases[idx],time:Math.floor(Math.random()*12)+'h'});
+      renderFeed();
+    }
+
+    function escapeHtml(s){return s.replace(/[&<>"']/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+    // Modal helpers
+    function openLogin(){document.getElementById('modal').style.display='flex';document.getElementById('modal-title').textContent='Iniciar sesión'}
+    function openSignup(){document.getElementById('modal').style.display='flex';document.getElementById('modal-title').textContent='Regístrate'}
+    function closeModal(){document.getElementById('modal').style.display='none'}
+    function fakeLogin(){closeModal();alert('Simulación: sesión iniciada (falsa).')}
+
+    // Inicial
+    renderFeed();renderSuggestions();
+  </script>
+</body>
+</html>
